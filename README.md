@@ -12,8 +12,9 @@ restful API's Requirements:
 
 
 Additional details: 
-Implement the model, DB migrations, and JSON API.
-Only two fields on the users: &quot;id&quot; and &quot;name&quot;.
-No need to implement any user registration API.
-You can use any gems you like.
+
+- [] Implement the model, DB migrations, and JSON API.
+- [] Only two fields on the users: &quot;id&quot; and &quot;name&quot;.
+- [] No need to implement any user registration API.
+
 ============================
