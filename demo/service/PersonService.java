@@ -38,6 +38,10 @@ public class PersonService {
         this.id = id;
         return personDao.selectMyClockTimeByID(id);
     }
+    public List<UUID> getMyFriendList(UUID id){
+        this.id = id;
+        return personDao.getMyFriendList(id);
+    }
     public String getMySleepTimeTotal(UUID id){
         this.id = id;
         return personDao.getMySleepTimeTotal(id);
@@ -56,9 +60,7 @@ public class PersonService {
          this.id =id;
         personDao.addClockInTime(id,clockIn);
     }
-    /*public void setSleepTimeTotal(UUID id) {
-        this.id=id;
-        personDao.setSleepTimeTotal(id);
-    }*/
+    public void addToMyFriendList(UUID myId, Person myFriend){ personDao.addToMyFriendList(myId,myFriend);}
+
 
 }
