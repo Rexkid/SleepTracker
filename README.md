@@ -3,10 +3,13 @@
 Sleep Tracker is a skeleton structure in coding and designing an API. 
 ==========================================
 Usage of Project: 
-Implement a &quot;Sleep tracking&quot; application that allows users to keep track of when they go to bed and when they wake up.
+Implement a "Sleep tracking" application that allows users to keep track of when they go to bed and when they wake up.
+They will also be able to add and follow friends to have some nice competition of who can sleep the most or least. 
+Knowing your friends sleeping times can help with early signs of depression or heavy stressful moments.  Spotting 
+a disrutpion in a friend or family member's sleep patters can go a long way. 
 
 restful API's Requirements: 
-1. Contain a &quotClock-In&quot operation, and return all clocked-in times, ordered by created time.
+1. Contain a "Clock-In" operation, and return all clocked-in times, ordered by created time.
 2. Allow for users to be able to follow and unfollow other users.
 3. Display sleep records over the past week for their friends, ordered by the length of their sleep.
 
