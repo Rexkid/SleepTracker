@@ -15,6 +15,6 @@ Additional details:
 
 - [] Implement the model, DB migrations, and JSON API.
 - [] Only two fields on the users: &quot;id&quot; and &quot;name&quot;.
-- [] No need to implement any user registration API.
+- [] No implementing of any user registration API for now.
 
 ============================
