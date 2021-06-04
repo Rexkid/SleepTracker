@@ -75,11 +75,10 @@ public class PersonController {
     }
 
     @PutMapping(path = "{id}"+"/myFriendList")
-    public void addToMyFriendList(@PathVariable("id") UUID myId, Person myFriend){
-        //LEFT OFF RIGHT HERE!!!!!****************E(#(#(#()#)')#
+    public void addToMyFriendList(@PathVariable("id") UUID myId, @RequestBody Person myFriend){
         this.id = myId;
-        //this.myFriendId = myFriendId;
         personService.addToMyFriendList(myId,myFriend);
+
     }
 
 

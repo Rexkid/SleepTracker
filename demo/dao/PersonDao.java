@@ -25,12 +25,7 @@ public interface PersonDao {
     void addToMyFriendList(UUID myId, Person myFriend);
 
     //GETTERS
-    List<String> selectMyClockTimeByID(UUID id);//, String targetDate);//List<List<String>> clockDate);
+    List<String> selectMyClockTimeByID(UUID id);
     List<UUID>  getMyFriendList(UUID id);
     String getMySleepTimeTotal(UUID id);
-
-
-
-
-
 }

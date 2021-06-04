@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.Person;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
 import java.text.ParseException;
@@ -64,10 +65,9 @@ public class FakePersonDataAccessService implements  PersonDao{
     }
 
     @Override
-    public void addToMyFriendList(UUID myId, Person myFriend) {
+    public void addToMyFriendList(UUID myId, @NotNull Person myFriend){//THIS NEEDS TO CONFIRM THE ID IS VALID
         Optional<Person> personMaybe = selectPersonByID(myId);
         personMaybe.get().getMyFriendList().add(myFriend.getId());
-
     }
 
     @Override
@@ -81,7 +81,6 @@ public class FakePersonDataAccessService implements  PersonDao{
         Optional<Person> personMaybe = selectPersonByID(id);
         return personMaybe.get().getMyFriendList();
     }
-
 
     @Override
     public String getMySleepTimeTotal(UUID id) {//List<String> getMySleepTimeTotal(UUID id) {
