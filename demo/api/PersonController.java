@@ -50,6 +50,12 @@ public class PersonController {
         return personService.getMySleepTimeTotal(id);
     }
 
+    @GetMapping(path = "{id}"+"/myFriendList")
+    public List<UUID> getMyFriendList(@PathVariable("id") UUID id){
+       return personService.getMyFriendList(id);
+    }
+
+
     @DeleteMapping(path = "{id}")
     public void deletePersonById(@PathVariable("id") UUID id){
         personService.deletePerson(id);
@@ -68,11 +74,13 @@ public class PersonController {
         personService.addClockInTime(id,clockIn);
     }
 
-    /*@PutMapping(path = "{id}"+"/sleepTimeTotal")
-    public void setSleepTimeTotal(@PathVariable("id") UUID id) {
-        this.id = id;
-        personService.setSleepTimeTotal(id);
-    }*/
+    @PutMapping(path = "{id}"+"/myFriendList")
+    public void addToMyFriendList(@PathVariable("id") UUID myId, Person myFriend){
+        //LEFT OFF RIGHT HERE!!!!!****************E(#(#(#()#)')#
+        this.id = myId;
+        //this.myFriendId = myFriendId;
+        personService.addToMyFriendList(myId,myFriend);
+    }
 
 
     }

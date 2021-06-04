@@ -22,12 +22,13 @@ public interface PersonDao {
     //SETTERS
     int updatePersonById(UUID id, Person update);
     void addClockInTime(UUID id, boolean clockIn);//boolean not necessary Maybe
-   // void setSleepTimeTotal(UUID id);
-
+    void addToMyFriendList(UUID myId, Person myFriend);
 
     //GETTERS
     List<String> selectMyClockTimeByID(UUID id);//, String targetDate);//List<List<String>> clockDate);
+    List<UUID>  getMyFriendList(UUID id);
     String getMySleepTimeTotal(UUID id);
+
 
 
 

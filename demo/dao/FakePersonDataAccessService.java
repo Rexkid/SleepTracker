@@ -20,6 +20,11 @@ public class FakePersonDataAccessService implements  PersonDao{
     }
 
     @Override
+    public int insertPerson(Person person) {
+        return PersonDao.super.insertPerson(person);
+    }
+
+    @Override
     public List<Person> selectAllPeople() {
         return DB;
     }
@@ -58,43 +63,12 @@ public class FakePersonDataAccessService implements  PersonDao{
         personMaybe.get().getMyClockTime().add(dateFormat.format(Calendar.getInstance().getTime()));
     }
 
-    /*public void setSleepTimeTotal(UUID id) {
-        Optional<Person> personMaybe = selectPersonByID(id);//.map(person ->{
-        String temp = null;
-        //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    @Override
+    public void addToMyFriendList(UUID myId, Person myFriend) {
+        Optional<Person> personMaybe = selectPersonByID(myId);
+        personMaybe.get().getMyFriendList().add(myFriend.getId());
 
-        if(personMaybe.get().getMyClockTime().size() > 1)
-        {
-            /*long sleptTime=0;
-
-            for(int i =0; i< personMaybe.get().getMyClockTime().size();i++){
-                //temp.add("2021-06-02T04:36:23");
-                Date date1 = null;
-                StdDateFormat timeFormat = null;
-                try {
-                    date1 = timeFormat.parse(personMaybe.get().getMyClockTime().get(i));
-                } catch (ParseException parseException) {
-                    parseException.printStackTrace();
-                }
-                Date date2 = null;
-                try {
-                    date2 = timeFormat.parse(personMaybe.get().getMyClockTime().get(i+1));
-                } catch (ParseException parseException) {
-                    parseException.printStackTrace();
-                }
-                sleptTime += date2.getTime() - date1.getTime();
-            }
-            temp = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(sleptTime),
-                    TimeUnit.MILLISECONDS.toMinutes(sleptTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(sleptTime)),
-                    TimeUnit.MILLISECONDS.toSeconds(sleptTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(sleptTime)));
-
-                   String it = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(1111515156),
-                    TimeUnit.MILLISECONDS.toMinutes(1111115156) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(1111515156)),
-                    TimeUnit.MILLISECONDS.toSeconds(1111515156) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(1111515156)));
-
-        }
-    }*/
-
+    }
 
     @Override
     public List<String> selectMyClockTimeByID(UUID id){
@@ -103,14 +77,20 @@ public class FakePersonDataAccessService implements  PersonDao{
     }
 
     @Override
+    public List<UUID> getMyFriendList(UUID id) {
+        Optional<Person> personMaybe = selectPersonByID(id);
+        return personMaybe.get().getMyFriendList();
+    }
+
+
+    @Override
     public String getMySleepTimeTotal(UUID id) {//List<String> getMySleepTimeTotal(UUID id) {
-//THERE'S AN ERROR WHEN ATTEMPTING TO GET AN ODD NUMBER OF CLOCKins.  i.e. 5 clock-ins.
         Optional<Person> personMaybe = selectPersonByID(id);
         if (personMaybe.get().getMyClockTime().size() > 1) {
             String temp;
             long sleptTime = 0;
 
-            for (int i = 0; i < personMaybe.get().getMyClockTime().size(); i++) {
+            for (int i = 0; i < personMaybe.get().getMyClockTime().size()-1; i++) {
                 if (i % 2 == 0) {
                     Date date1 = null;
                     SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
