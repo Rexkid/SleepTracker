@@ -46,6 +46,26 @@ public class FakePersonDataAccessService implements  PersonDao{
     }
 
     @Override
+    public int updateFriendByIdFromMyFriendList(UUID id, Person myOldFriend) {return 0;}
+
+      /*  Optional<Person> personMaybe = selectPersonByID((id));
+        List<UUID> myFriendList = personMaybe.get().getMyFriendList();
+        int counter = 0;
+        for(UUID follower : myFriendList)
+        {
+            if(follower == myFriendList.get(counter)){
+                myFriendList.remove(0);
+                return 1;
+            }
+            else{
+                counter++;
+            }
+        }
+
+        return 0;
+    }*/
+
+    @Override
     public int updatePersonById(UUID id, Person newPerson) {
         return selectPersonByID(id).map(person -> {
             int indexOfPersonToUpdate = DB.indexOf(person);
@@ -65,9 +85,29 @@ public class FakePersonDataAccessService implements  PersonDao{
     }
 
     @Override
-    public void addToMyFriendList(UUID myId, @NotNull Person myFriend){//THIS NEEDS TO CONFIRM THE ID IS VALID
+    public int addToMyFriendList(UUID myId, @NotNull Person myNewFriend){//THIS NEEDS TO CONFIRM THE ID IS VALID
         Optional<Person> personMaybe = selectPersonByID(myId);
-        personMaybe.get().getMyFriendList().add(myFriend.getId());
+        UUID myFriendMaybe = myNewFriend.getId();
+        List<UUID> myFriendList = personMaybe.get().getMyFriendList();
+        boolean hasMatch = false;
+
+        for(int counter = 0; counter < myFriendList.size(); counter++)// follower : myFriendList)
+        {
+
+           System.out.println("Do they match: " + myFriendMaybe + ": " + myFriendList.get(counter));
+
+            if(myFriendMaybe.equals(myFriendList.get(counter))){
+                myFriendList.remove(counter);
+                hasMatch=true;
+                return 1;
+            }
+            else{
+                counter++;
+            }
+        }
+
+        personMaybe.get().getMyFriendList().add(myNewFriend.getId());
+        return 0;
     }
 
     @Override

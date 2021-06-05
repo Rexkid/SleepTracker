@@ -61,8 +61,13 @@ public class PersonController {
         personService.deletePerson(id);
     }
 
+    @DeleteMapping(path="{id}" + "/myFriendList")
+    public void updateFriendByIdFromMyFriendList(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person myOldFriend) {
+        personService.updateFriendByIdFromMyFriendList(id,myOldFriend);
+    }
 
-    @PutMapping(path = "{id}")
+
+   @PutMapping(path = "{id}")
     public void updatePerson(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person personToUpdate){
         personService.updatePerson(id, personToUpdate);
     }
@@ -75,11 +80,11 @@ public class PersonController {
     }
 
     @PutMapping(path = "{id}"+"/myFriendList")
-    public void addToMyFriendList(@PathVariable("id") UUID myId, @RequestBody Person myFriend){
+    public int addToMyFriendList(@PathVariable("id") UUID myId, @RequestBody Person myNewFriend){
         this.id = myId;
-        personService.addToMyFriendList(myId,myFriend);
-
+        personService.addToMyFriendList(myId,myNewFriend);
+        return 0;
     }
 
 
-    }
+}
