@@ -17,15 +17,19 @@ public interface PersonDao {
     List<Person> selectAllPeople();
 
     Optional<Person> selectPersonByID(UUID id);
+
+    //REMOVER
     int deletePersonById(UUID id);
 
     //SETTERS
-    int updatePersonById(UUID id, Person update);
+    int updatePersonById(UUID id, Person newPerson);
     void addClockInTime(UUID id, boolean clockIn);//boolean not necessary Maybe
-    void addToMyFriendList(UUID myId, Person myFriend);
+    int addToMyFriendList(UUID myId, Person myNewFriend);
 
     //GETTERS
     List<String> selectMyClockTimeByID(UUID id);
     List<UUID>  getMyFriendList(UUID id);
     String getMySleepTimeTotal(UUID id);
+    List<String> getSortMyFriendListByIdAndLongestSleeper(List<UUID> myCurrentFriendList);
+
 }

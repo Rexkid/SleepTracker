@@ -18,6 +18,8 @@ public class PersonController {
     private UUID id;
     private @Valid boolean clockIn;
 
+    /****************** AUTO CONTROLS ***************** */
+
     @Autowired
     public PersonController(PersonService personService)
     {
@@ -25,10 +27,15 @@ public class PersonController {
     }
 
 
+    /****************** POST CONTROLS ***************** */
+
     @PostMapping
     public void addPerson(@Valid @NonNull @RequestBody Person person){
         personService.addPerson(person);
     }
+
+
+    /****************** PUT CONTROLS ***************** */
 
     @GetMapping
     public List<Person> getAllPeople(){
@@ -50,21 +57,34 @@ public class PersonController {
         return personService.getMySleepTimeTotal(id);
     }
 
-    @GetMapping(path = "{id}"+"/myFriendList")
+    @GetMapping(path = "{id}"+"/myFriendListById")
     public List<UUID> getMyFriendList(@PathVariable("id") UUID id){
        return personService.getMyFriendList(id);
     }
 
+    @GetMapping(path = "{id}"+"/viewFriendListBySleepTimes")
+    public List<String> getSortMyFriendListByIdAndLongestSleeper(@PathVariable("id") UUID id){
+        this.id = id;
+        List<UUID> myCurrentFriendList = this.getMyFriendList(id);
+        return personService.getSortMyFriendListByIdAndLongestSleeper(myCurrentFriendList);
+    }
 
+    /****************** DELETE CONTROLS ***************** */
     @DeleteMapping(path = "{id}")
     public void deletePersonById(@PathVariable("id") UUID id){
         personService.deletePerson(id);
     }
 
+    /*@DeleteMapping(path="{id}" + "/myFriendList")
+    public void updateFriendByIdFromMyFriendList(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person myOldFriend) {
+        personService.updateFriendByIdFromMyFriendList(id,myOldFriend);
+    }*/
+
+    /****************** PUT CONTROLS ***************** */
 
     @PutMapping(path = "{id}")
-    public void updatePerson(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person personToUpdate){
-        personService.updatePerson(id, personToUpdate);
+    public int updatePersonById(@PathVariable("id") UUID id, @NonNull @RequestBody Person personToUpdate){
+        return personService.updatePersonById(id, personToUpdate);
     }
 
     @PutMapping(path = "{id}"+"/myClockTime")
@@ -74,12 +94,12 @@ public class PersonController {
         personService.addClockInTime(id,clockIn);
     }
 
-    @PutMapping(path = "{id}"+"/myFriendList")
-    public void addToMyFriendList(@PathVariable("id") UUID myId, @RequestBody Person myFriend){
+    @PutMapping(path = "{id}"+"/myFriendListById")
+    public int addToMyFriendList(@PathVariable("id") UUID myId, @RequestBody Person myNewFriend){
         this.id = myId;
-        personService.addToMyFriendList(myId,myFriend);
-
+        personService.addToMyFriendList(myId,myNewFriend);
+        return 0;
     }
 
 
-    }
+}

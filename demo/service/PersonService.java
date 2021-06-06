@@ -46,21 +46,29 @@ public class PersonService {
         this.id = id;
         return personDao.getMySleepTimeTotal(id);
     }
+    public List<String> getSortMyFriendListByIdAndLongestSleeper(List<UUID> myCurrentFriendList){
+        return personDao.getSortMyFriendListByIdAndLongestSleeper(myCurrentFriendList);
+    }
 
-        //DELETE FUNCTIONS
+
+
+    //DELETE FUNCTIONS
     public int deletePerson(UUID id){
         return personDao.deletePersonById(id);
     }
 
-    //PUT FUNCTIONS
-    public int updatePerson(UUID id, Person newPerson){
+
+
+        //PUT FUNCTIONS
+    public int updatePersonById(UUID id, Person newPerson){
         return personDao.updatePersonById(id, newPerson);
     }
     public void addClockInTime(UUID id, boolean clockIn) {
          this.id =id;
         personDao.addClockInTime(id,clockIn);
     }
-    public void addToMyFriendList(UUID myId, Person myFriend){ personDao.addToMyFriendList(myId,myFriend);}
+    public int addToMyFriendList(UUID myId, Person myNewFriend){ personDao.addToMyFriendList(myId,myNewFriend);
+    return 0;}
 
 
 }
