@@ -93,12 +93,10 @@ public class FakePersonDataAccessService implements  PersonDao{
     @Override
     public List<UUID> getMyFriendList(UUID id) {
         Optional<Person> personMaybe = selectPersonByID(id);
-       // List<UUID> tempListOfFriendsUUID = sortMyFriendList(personMaybe.get().getMyFriendList());
         List<UUID> tempListOfFriendsUUID = personMaybe.get().getMyFriendList();
 
         //THIS IS WHERE THE FRIEND LIST WILL GET ORGANIZED TO HAVE FRIENDS IN ORDER.
 
-    /* PERHAPS THIS SHOULD RETURN A LIST<STRING> rather than IDs */
         return tempListOfFriendsUUID;
     }
 
@@ -149,6 +147,7 @@ public class FakePersonDataAccessService implements  PersonDao{
     public List<String> getSortMyFriendListByIdAndLongestSleeper(List<UUID> myCurrentFriendList) {
         List<UUID> tempList = myCurrentFriendList;
         List<String> myListOfFriendTimes = new ArrayList<>();
+        List<Long> TotalTimes = new ArrayList<>();
 
         String temp = "none.";
 
@@ -182,29 +181,39 @@ public class FakePersonDataAccessService implements  PersonDao{
             temp = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(sleptTime),
                     TimeUnit.MILLISECONDS.toMinutes(sleptTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(sleptTime)),
                     TimeUnit.MILLISECONDS.toSeconds(sleptTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(sleptTime)));
+            TotalTimes.add(sleptTime);
             myListOfFriendTimes.add("Name: " + selectPersonByID(tempList.get(listCursor)).get().getName() + " - Slept Hours: " + temp );
         }
 
-        /*//PUTS FRIEND LIST IN THE ORDER FROM LONGEST SLEEPER TO LEAST
-        for(int i=0;i<tempList.size();i++)
+        //PUTS FRIEND LIST IN THE ORDER FROM LONGEST SLEEPER TO LEAST*/
+        for(int i=0;i<TotalTimes.size();i++)
         {
-            for(int j=0;j<tempList.size();j++)
+            for(int j=i;j<TotalTimes.size();j++)
             {
-                UUID tempIDHolder;
-                //Get the times into milliseconds
-            }
-        }*/
+                String tempFriendTimeHolder;
+                //Gets the times from milliseconds
+                if(TotalTimes.get(i)<TotalTimes.get(j))
+                {
+                    long tempLong=0;
+                    tempFriendTimeHolder = myListOfFriendTimes.get(i);
+                    myListOfFriendTimes.set(i,myListOfFriendTimes.get(j));
+                    myListOfFriendTimes.set(j, tempFriendTimeHolder);
 
-        myListOfFriendTimes.add(temp);
+                    tempLong=TotalTimes.get(i);
+                    TotalTimes.set(i,TotalTimes.get(j));
+                    TotalTimes.set(j,tempLong);
+                }
+            }
+        }
         return myListOfFriendTimes;
     }
 
     String sleptTimesWithinAPeriod(List<UUID> myFriendSleptTimes, int daysWithin){
 
         String sleptTimeWithinAPeriodByDays = null;
-        List<String> tempList = new ArrayList<>();
+        //List<String> tempList = new ArrayList<>();
         SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        //List<UUID> tempTotal = new ArrayList<>();
+        List<UUID> tempTotal = new ArrayList<>();
         int counter = 0;
 
         for(UUID id: myFriendSleptTimes)
