@@ -16,8 +16,8 @@ restful API's Requirements:
 
 Additional details: 
 
-- [] Implement the model, DB migrations, and JSON API.
-- [] Only two fields on the users: &quot;id&quot; and &quot;name&quot;.
-- [] No implementing of any user registration API for now.
+- [ ] Implement the model, DB migrations, and JSON API.
+- [ ] Only two fields on the users: &quot;id&quot; and &quot;name&quot;.
+- [ ] No implementing of any user registration API for now.
 
 ============================
